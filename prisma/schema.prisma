@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id           Int              @id @default(autoincrement())
+  email        String           @unique(map: "email") @db.VarChar(255)
+  name         String           @db.VarChar(255)
+  userSintomas user_sintomas[]  // Relacionamento com a tabela de junção
+  userVirus    user_virus[]     // Relacionamento com a tabela de junção
+}
+
+model sintomas {
+  id           Int              @id @default(autoincrement())
+  name         String           @db.VarChar(255)
+  userSintomas user_sintomas[]  // Relacionamento com a tabela de junção
+}
+
+model virus {
+  id        Int           @id @default(autoincrement())
+  name      String        @db.VarChar(255)
+  userVirus user_virus[]  // Relacionamento com a tabela de junção
+}
+
+model user_sintomas {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  sintoma_id Int
+
+  user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  sintoma    sintomas  @relation(fields: [sintoma_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, sintoma_id]) // Garante que a combinação user_id e sintoma_id seja única
+}
+
+model user_virus {
+  id        Int    @id @default(autoincrement())
+  user_id   Int
+  virus_id  Int
+
+  user      users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  virus     virus  @relation(fields: [virus_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, virus_id]) // Garante que a combinação user_id e virus_id seja única
+}
