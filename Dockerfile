@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Copie o arquivo .env para o contêiner
-COPY .env ./
+#COPY .env ./
 
 # Instale as dependências
 RUN npm install
