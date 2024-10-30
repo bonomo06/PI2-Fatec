@@ -3,9 +3,7 @@ import { CreateVirusDTO } from '../dtos/virus.dto'
 import Virus from "../entities/virus.entity";
 
 export const createVirusService = async (data: CreateVirusDTO) => {
-    const virus = await findVirusByName(data.name)
-    if(virus) throw new Error('Vírus já cadastrado!')
-
+    console.log("Dados recebidos para criar virus: ", data);
     return await createVirus(data);
 }
 
