@@ -34,23 +34,17 @@ model virus {
 }
 
 model user_sintomas {
-  id         Int      @id @default(autoincrement())
-  user_id    Int
-  sintoma_id Int
-
-  user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  sintoma    sintomas  @relation(fields: [sintoma_id], references: [id], onDelete: Cascade)
-
-  @@unique([user_id, sintoma_id]) // Garante que a combinação user_id e sintoma_id seja única
+  id        Int      @id @default(autoincrement())
+  user      users     @relation(fields: [userId], references: [id])
+  userId    Int
+  sintoma   sintomas  @relation(fields: [sintomaId], references: [id])
+  sintomaId Int
 }
 
 model user_virus {
-  id        Int    @id @default(autoincrement())
-  user_id   Int
-  virus_id  Int
-
-  user      users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  virus     virus  @relation(fields: [virus_id], references: [id], onDelete: Cascade)
-
-  @@unique([user_id, virus_id]) // Garante que a combinação user_id e virus_id seja única
+  id        Int      @id @default(autoincrement())
+  user      users     @relation(fields: [userId], references: [id])
+  userId    Int
+  virus     virus  @relation(fields: [virusId], references: [id])
+  virusId Int
 }
