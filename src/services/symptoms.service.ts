@@ -1,4 +1,5 @@
 import Sintomas from "../entities/symptoms.entity"
+import Users from "../entities/user.entity";
 import { createSymptom, findAllSymptoms, findSymptomsById, deleteSymptoms, createUserSymptom } from "../repositories/symptoms.repository";
 import { CreateSymptomDTO } from '../dtos/symptoms.dto';
 import { CreateUserSymptomDTO } from "../dtos/user.symptom.dto";
@@ -33,11 +34,12 @@ export const createUserSymptomService = async (data: CreateUserSymptomDTO) => {
     }
 };
 
-export const countSymptomsByName = async (name: string) => {
-    const uppercasedName = name.toUpperCase(); // Normaliza o nome que será buscado
-    return await Sintomas.count({
-        where: {
-            name: uppercasedName // Conta apenas sintomas que têm o nome normalizado
-        }
-    });
-};
+export const countSymptomsById = async (id: number) => {
+    const symptoms = await findAllSymptoms();
+    return symptoms.filter(symptom => symptom.id === id).length;
+}
+
+// export const countSymptomsById = async (symptomId: number) => {
+//     const symptoms = await findAllSymptoms();
+//     return symptoms.filter(symptom => symptom.id === symptomId).length;
+// };

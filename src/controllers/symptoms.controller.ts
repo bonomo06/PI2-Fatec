@@ -1,4 +1,4 @@
-import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomsByName, createUserSymptomService } from '../services/symptoms.service';
+import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomsById, createUserSymptomService } from '../services/symptoms.service';
 import { Request, Response } from 'express';
 
 export const createSymptom = async (req: Request, res: Response) => {
@@ -44,9 +44,9 @@ export const createUserSymptom = async (req: Request, res: Response) => {
 };
 
 export const countSymptoms = async (req: Request, res: Response) => {
-    const { name } = req.params; // Supondo que o nome seja passado como parâmetro na URL
+    const { id } = req.params; // Supondo que o nome seja passado como parâmetro na URL
     try {
-        const count = await countSymptomsByName(name);
+        const count = await countSymptomsById(Number(id));
         return res.status(200).json({ count });
     } catch (error) {
         return res.status(400).json({ error });
