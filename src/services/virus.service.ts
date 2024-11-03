@@ -1,5 +1,6 @@
-import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus } from "../repositories/virus.repository";
+import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus, createUserVirus } from "../repositories/virus.repository";
 import { CreateVirusDTO } from '../dtos/virus.dto'
+import { CreateUserVirusDTO } from "../dtos/user.virus.dto";
 import Virus from "../entities/virus.entity";
 
 export const createVirusService = async (data: CreateVirusDTO) => {
@@ -18,6 +19,17 @@ export const findVirusByNameService = async (name: string) => {
 export const findAllVirusesService = async () => {
     return await findAllViruses()
 }
+
+export const createUserVirusService = async (data: CreateUserVirusDTO) => {
+    try {
+        console.log("Dados recebidos para criar associação entre usuário e sintoma: ", data);
+        // Cria a associação entre o usuário e o sintoma
+        return await createUserVirus(data);
+    } catch (error) {
+        console.error("Erro ao criar associação entre usuário e sintoma: ", error);
+        throw new Error('Erro ao criar associação entre usuário e sintoma: ' + error);
+    }
+};
 
 export const deleteVirusService = async (id: number) => {
     const virus = await findVirusById(id)

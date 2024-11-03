@@ -1,4 +1,4 @@
-import { createVirusService, findVirusByNameService, findVirusByIdService, findAllVirusesService, deleteVirusService, countVirusByName } from "../services/virus.service";
+import { createVirusService, findVirusByNameService, findVirusByIdService, findAllVirusesService, deleteVirusService, countVirusByName, createUserVirusService } from "../services/virus.service";
 import { Request, Response } from 'express'
 
 export const createVirus = async (req: Request, res: Response) => {
@@ -32,6 +32,16 @@ export const findVirusById = async (req: Request, res: Response) => {
         return res.status(400).json({ error });
     }
 }
+
+export const createUserVirus = async (req: Request, res: Response) => {
+    try {
+        const userVirus = await createUserVirusService(req.body);
+        return res.status(201).json(userVirus);
+    } catch (error) {
+        console.error("Erro ao associar virus a usuário:", error);
+        return res.status(400).json({ error });
+    }
+};
 
 export const deleteVirus = async (req: Request, res: Response) => {
     try {
