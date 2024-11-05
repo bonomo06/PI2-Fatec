@@ -52,3 +52,12 @@ export const countSymptomOccurrences = async (sintomaId: number) => {
         where: { sintomaId },
     });
 };
+
+export const getUserSymptoms = async (userId?: number) => {
+    return await prisma.user_sintomas.findMany({where: userId ? { userId } : undefined,
+        include: {
+            user: true,    // Inclui dados do usuário
+            sintoma: true, // Inclui dados do sintoma
+        },
+    });
+};

@@ -56,3 +56,12 @@ export const countVirusOccurrences = async (virusId: number) => {
         where: { virusId },
     });
 };
+
+export const getUserVirus = async (userId?: number) => {
+    return await prisma.user_virus.findMany({where: userId ? { userId } : undefined,
+        include: {
+            user: true,
+            virus: true,
+        },
+    });
+};

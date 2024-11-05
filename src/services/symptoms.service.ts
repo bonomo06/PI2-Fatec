@@ -1,6 +1,6 @@
 import Sintomas from "../entities/symptoms.entity"
 import Users from "../entities/user.entity";
-import { createSymptom, findAllSymptoms, findSymptomsById, deleteSymptoms, createUserSymptom, countSymptomOccurrences } from "../repositories/symptoms.repository";
+import { createSymptom, findAllSymptoms, findSymptomsById, deleteSymptoms, createUserSymptom, countSymptomOccurrences, getUserSymptoms } from "../repositories/symptoms.repository";
 import { CreateSymptomDTO } from '../dtos/symptoms.dto';
 import { CreateUserSymptomDTO } from "../dtos/user.symptom.dto";
 
@@ -36,6 +36,10 @@ export const createUserSymptomService = async (data: CreateUserSymptomDTO) => {
 
 export const countSymptomOccurrencesService = async (sintomaId: number) => {
     return await countSymptomOccurrences(sintomaId);
+};
+
+export const getUserSymptomsService = async (userId?: number) => {
+    return await getUserSymptoms(userId);
 };
 
 // export const countSymptomsById = async (symptomId: number) => {

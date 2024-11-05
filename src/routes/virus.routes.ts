@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { validate } from "../middlewares/validate.middleware"
-import { createVirus, findAllViruses, findVirusById, deleteVirus, countVirusOccurrences, createUserVirus } from "../controllers/virus.controller"
+import { createVirus, findAllViruses, findVirusById, deleteVirus, countVirusOccurrences, createUserVirus, getUserVirusAssociations } from "../controllers/virus.controller"
 import { CreateVirusDTO } from "../dtos/virus.dto"
 
 const router = Router()
@@ -11,6 +11,6 @@ router.get('/:id', findVirusById)
 router.delete('/:id', deleteVirus)
 router.get('/count/:virusId', countVirusOccurrences)
 router.post('/user-virus', createUserVirus)
-router.get('/user-virus', createUserVirus)
+router.get('/get/user-virus', getUserVirusAssociations)
 
 export default router

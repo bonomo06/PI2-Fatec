@@ -1,4 +1,4 @@
-import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomOccurrencesService, createUserSymptomService } from '../services/symptoms.service';
+import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomOccurrencesService, createUserSymptomService, getUserSymptomsService } from '../services/symptoms.service';
 import { Request, Response } from 'express';
 
 export const createSymptom = async (req: Request, res: Response) => {
@@ -50,5 +50,16 @@ export const countSymptomOccurrences = async (req: Request, res: Response) => {
         return res.status(200).json({ count });
     } catch (error) {
         return res.status(400).json({ error: "Erro ao contar ocorrências do sintoma" });
+    }
+};
+
+export const getUserSymptomAssociations = async (req: Request, res: Response) => {
+    try {
+        const userId = req.query.userId ? Number(req.query.userId) : undefined;
+        const associations = await getUserSymptomsService(userId);
+        return res.status(200).json(associations);
+    } catch (error) {
+        console.error("Erro ao buscar associações entre usuário e sintoma:", error);
+        return res.status(500).json({ error: 'Erro ao buscar associações' });
     }
 };

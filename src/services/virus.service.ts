@@ -1,4 +1,4 @@
-import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus, createUserVirus, countVirusOccurrences } from "../repositories/virus.repository";
+import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus, createUserVirus, countVirusOccurrences, getUserVirus } from "../repositories/virus.repository";
 import { CreateVirusDTO } from '../dtos/virus.dto'
 import { CreateUserVirusDTO } from "../dtos/user.virus.dto";
 import Virus from "../entities/virus.entity";
@@ -41,4 +41,8 @@ export const deleteVirusService = async (id: number) => {
 
 export const countVirusOccurrencesService = async (virusId: number) => {
     return await countVirusOccurrences(virusId);
+};
+
+export const getUserVirusService = async (userId?: number) => {
+    return await getUserVirus(userId);
 };
