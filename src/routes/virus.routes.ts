@@ -11,5 +11,6 @@ router.get('/:id', findVirusById)
 router.delete('/:id', deleteVirus)
 router.get('/count/:virusId', countVirusOccurrences)
 router.post('/user-virus', createUserVirus)
+router.get('/user-virus', createUserVirus)
 
 export default router

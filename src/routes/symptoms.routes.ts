@@ -11,5 +11,6 @@ router.get('/:id', findSymptomById)
 router.delete('/:id', deleteSymptom)
 router.get('/count/:sintomaId', countSymptomOccurrences)
 router.post('/user-symptom', createUserSymptom)
+router.get('/user-symptom', createUserSymptom)
 
 export default router
