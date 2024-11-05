@@ -1,6 +1,8 @@
 import Sintomas from "../entities/symptoms.entity"
-import { createSymptom, findAllSymptoms, findSymptomsById, deleteSymptoms } from "../repositories/symptoms.repository";
+import Users from "../entities/user.entity";
+import { createSymptom, findAllSymptoms, findSymptomsById, deleteSymptoms, createUserSymptom, countSymptomOccurrences } from "../repositories/symptoms.repository";
 import { CreateSymptomDTO } from '../dtos/symptoms.dto';
+import { CreateUserSymptomDTO } from "../dtos/user.symptom.dto";
 
 export const createSymptomService = async (data: CreateSymptomDTO) => {
     console.log("Dados recebidos para criar sintoma: ", data);
@@ -21,11 +23,22 @@ export const deleteSymptomsService = async (id: number) => {
     return await deleteSymptoms(id);
 };
 
-export const countSymptomsByName = async (name: string) => {
-    const uppercasedName = name.toUpperCase(); // Normaliza o nome que será buscado
-    return await Sintomas.count({
-        where: {
-            name: uppercasedName // Conta apenas sintomas que têm o nome normalizado
-        }
-    });
+export const createUserSymptomService = async (data: CreateUserSymptomDTO) => {
+    try {
+        console.log("Dados recebidos para criar associação entre usuário e sintoma: ", data);
+        // Cria a associação entre o usuário e o sintoma
+        return await createUserSymptom(data);
+    } catch (error) {
+        console.error("Erro ao criar associação entre usuário e sintoma: ", error);
+        throw new Error('Erro ao criar associação entre usuário e sintoma: ' + error);
+    }
 };
+
+export const countSymptomOccurrencesService = async (sintomaId: number) => {
+    return await countSymptomOccurrences(sintomaId);
+};
+
+// export const countSymptomsById = async (symptomId: number) => {
+//     const symptoms = await findAllSymptoms();
+//     return symptoms.filter(symptom => symptom.id === symptomId).length;
+// };

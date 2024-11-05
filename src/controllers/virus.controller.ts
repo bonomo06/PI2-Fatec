@@ -1,4 +1,4 @@
-import { createVirusService, findVirusByNameService, findVirusByIdService, findAllVirusesService, deleteVirusService, countVirusByName } from "../services/virus.service";
+import { createVirusService, findVirusByNameService, findVirusByIdService, findAllVirusesService, deleteVirusService, countVirusOccurrencesService, createUserVirusService } from "../services/virus.service";
 import { Request, Response } from 'express'
 
 export const createVirus = async (req: Request, res: Response) => {
@@ -33,6 +33,16 @@ export const findVirusById = async (req: Request, res: Response) => {
     }
 }
 
+export const createUserVirus = async (req: Request, res: Response) => {
+    try {
+        const userVirus = await createUserVirusService(req.body);
+        return res.status(201).json(userVirus);
+    } catch (error) {
+        console.error("Erro ao associar virus a usuário:", error);
+        return res.status(400).json({ error });
+    }
+};
+
 export const deleteVirus = async (req: Request, res: Response) => {
     try {
         await deleteVirusService(Number(req.params.id));
@@ -42,12 +52,12 @@ export const deleteVirus = async (req: Request, res: Response) => {
     }
 }
 
-export const countVirus = async (req: Request, res: Response) => {
-    const { name } = req.params; // Supondo que o nome seja passado como parâmetro na URL
+export const countVirusOccurrences = async (req: Request, res: Response) => {
+    const virusId = Number(req.params.virusId);
     try {
-        const count = await countVirusByName(name);
+        const count = await countVirusOccurrencesService(virusId);
         return res.status(200).json({ count });
     } catch (error) {
-        return res.status(400).json({ error });
+        return res.status(400).json({ error: "Erro ao contar ocorrências do virus" });
     }
-}
+};

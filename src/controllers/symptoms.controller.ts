@@ -1,4 +1,4 @@
-import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomsByName } from '../services/symptoms.service';
+import { createSymptomService, findAllSymptomsService, deleteSymptomsService, findSymptomsByIdService, countSymptomOccurrencesService, createUserSymptomService } from '../services/symptoms.service';
 import { Request, Response } from 'express';
 
 export const createSymptom = async (req: Request, res: Response) => {
@@ -33,12 +33,22 @@ export const deleteSymptom = async (req: Request, res: Response) => {
     }
 };
 
-export const countSymptoms = async (req: Request, res: Response) => {
-    const { name } = req.params; // Supondo que o nome seja passado como parâmetro na URL
+export const createUserSymptom = async (req: Request, res: Response) => {
     try {
-        const count = await countSymptomsByName(name);
+        const userSymptom = await createUserSymptomService(req.body);
+        return res.status(201).json(userSymptom);
+    } catch (error) {
+        console.error("Erro ao associar sintoma a usuário:", error);
+        return res.status(400).json({ error });
+    }
+};
+
+export const countSymptomOccurrences = async (req: Request, res: Response) => {
+    const sintomaId = Number(req.params.sintomaId);
+    try {
+        const count = await countSymptomOccurrencesService(sintomaId);
         return res.status(200).json({ count });
     } catch (error) {
-        return res.status(400).json({ error });
+        return res.status(400).json({ error: "Erro ao contar ocorrências do sintoma" });
     }
 };
