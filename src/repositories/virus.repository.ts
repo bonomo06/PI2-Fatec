@@ -3,6 +3,9 @@ import { CreateVirusDTO } from "../dtos/virus.dto";
 import { CreateUserVirusDTO } from "../dtos/user.virus.dto";
 import { remove } from "remove-accents";
 import Users from "../entities/user.entity";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const createVirus = async (data: CreateVirusDTO) => {
     const normalizedName = remove(data.name.trim().toUpperCase().replace(/\s+/g, ''));
@@ -47,3 +50,9 @@ export const findAllViruses = async () => {
 export const deleteVirus = async (id: number) => {
     return Virus.delete({where: {id}})
 }
+
+export const countVirusOccurrences = async (virusId: number) => {
+    return await prisma.user_virus.count({
+        where: { virusId },
+    });
+};

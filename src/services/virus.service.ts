@@ -1,4 +1,4 @@
-import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus, createUserVirus } from "../repositories/virus.repository";
+import { createVirus, findVirusByName, findVirusById, findAllViruses, deleteVirus, createUserVirus, countVirusOccurrences } from "../repositories/virus.repository";
 import { CreateVirusDTO } from '../dtos/virus.dto'
 import { CreateUserVirusDTO } from "../dtos/user.virus.dto";
 import Virus from "../entities/virus.entity";
@@ -39,11 +39,6 @@ export const deleteVirusService = async (id: number) => {
     return await deleteVirus(id)
 }
 
-export const countVirusByName = async (name: string) => {
-    const uppercasedName = name.toUpperCase(); // Normaliza o nome que será buscado
-    return await Virus.count({
-        where: {
-            name: uppercasedName // Conta apenas sintomas que têm o nome normalizado
-        }
-    });
+export const countVirusOccurrencesService = async (virusId: number) => {
+    return await countVirusOccurrences(virusId);
 };

@@ -3,6 +3,9 @@ import { CreateSymptomDTO } from "../dtos/symptoms.dto"
 import { remove } from "remove-accents";
 import { CreateUserSymptomDTO } from "../dtos/user.symptom.dto";
 import Users from "../entities/user.entity";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const createSymptom = async (data: CreateSymptomDTO) => {
     const normalizedName = remove(data.name.trim().toUpperCase().replace(/\s+/g, ''));
@@ -43,3 +46,9 @@ export const findSymptomsById = async (id: number) => {
 export const deleteSymptoms = async (id: number) => {
     return Sintomas.delete({ where: { id } })
 }
+
+export const countSymptomOccurrences = async (sintomaId: number) => {
+    return await prisma.user_sintomas.count({
+        where: { sintomaId },
+    });
+};
