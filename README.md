@@ -28,8 +28,9 @@ This project is an API built with Node.js, Express, Prisma, and MySQL, designed 
 
 ### Environment Variables
 Set up a `.env` file with:
-```plaintext
+```bash
 DATABASE_URL="mysql://username:password@host:port/database"
+```
 
 ### Commands
 
@@ -68,29 +69,29 @@ The API will be accessible at http://localhost:3000
 ### API Endpoints
 **Users:**
 
-GET /api/users - Retrieves all users.
-GET /api/users/:id - Retrieves an user by id.
-POST /api/users - Creates a new user.
-DELETE /api/users/:id - Delete an user.
+<p>GET /api/users - Retrieves all users.</p>
+<p>GET /api/users/:id - Retrieves an user by id.</p>
+<p>POST /api/users - Creates a new user.</p>
+<p>DELETE /api/users/:id - Delete an user.</p>
 
 **Symptoms:**
 
-GET /api/sintomas - Retrieves all symptoms.
-GET /api/sintomas/:id - Retrieve a symptom by id.
-GET /api/sintomas/get/user-symptom - Retrieves all user-symptom association.
-GET /api/sintomas/count/:id - Symptom count.
-POST /api/sintomas - Adds a new symptom.
-DELETE /api/sintomas/:id - Delete a symptom.
+<p>GET /api/sintomas - Retrieves all symptoms.</p>
+<p>GET /api/sintomas/:id - Retrieve a symptom by id.</p>
+<p>GET /api/sintomas/get/user-symptom - Retrieves all user-symptom association.</p>
+<p>GET /api/sintomas/count/:id - Symptom count.</p>
+<p>POST /api/sintomas - Adds a new symptom.</p>
+<p>DELETE /api/sintomas/:id - Delete a symptom.</p>
 
 **Virus:**
 
-GET /api/virus - Retrieves all viruses.
-GET /api/virus/:id - Retrieve a virus by id.
-GET /api/virus/get/user-virus - Retrieves all user-virus associations.
-GET /api/virus/count/:id - Virus count.
-POST /api/virus - Adds a new virus.
-POST /api/user-virus - Adds a new user-virus association.
-DELETE /api/virus/:id - Delete a virus.
+<p>GET /api/virus - Retrieves all viruses.</p>
+<p>GET /api/virus/:id - Retrieve a virus by id.</p>
+<p>GET /api/virus/get/user-virus - Retrieves all user-virus associations.</p>
+<p>GET /api/virus/count/:id - Virus count.</p>
+<p>POST /api/virus - Adds a new virus.</p>
+<p>POST /api/user-virus - Adds a new user-virus association.</p>
+<p>DELETE /api/virus/:id - Delete a virus.</p>
 
 ### Testing with Thunder Client
 Use Thunder Client or Postman for testing API routes.
